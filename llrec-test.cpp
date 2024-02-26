@@ -66,7 +66,11 @@ void dealloc(Node* head)
 //   Add any helper functions or
 //   function object struct declarations
 // -----------------------------------------------
-
+struct IsOdd {
+    bool operator()(int value) const {
+        return value % 2 != 0;
+    }
+};
 
 
 
@@ -84,8 +88,43 @@ int main(int argc, char* argv[])
     Node* head = readList(argv[1]);
     cout << "Original list: ";
     print(head);
+    Node* head2 = readList(argv[1]);
 
     // Test out your linked list code
+    cout << endl;
+    IsOdd comp;
+    
+    Node* smaller = nullptr;
+    // smaller->next = new Node(1, nullptr);
+    // smaller->next->next = new Node(1, nullptr);
+    // smaller->next->next->next = new Node(1, nullptr);
+
+    //cout << "Here 1" << endl;
+
+    Node* larger = nullptr;
+    // larger->next = new Node(1, nullptr);
+    // larger->next->next = new Node(1, nullptr);
+    // larger->next->next->next = new Node(1, nullptr);
+    //cout << "Here 2" << endl;
+
+    int pivot = 10;
+
+    //implement pred 
+    Node* test2 = llfilter(head, comp);
+    print(test2);
+    cout << endl;
+// shoudl print:: 9 19
+    print(head);
+    cout << endl;
+
+    llpivot(head2, smaller, larger, pivot);
+
+    print(smaller);
+    cout << endl;
+// should print::  8 9 6 8 
+    print(larger);
+    cout << endl;
+// should print::  12 19
 
 
 
