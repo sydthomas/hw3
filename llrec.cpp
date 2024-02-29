@@ -1,5 +1,6 @@
 #include "llrec.h"
 
+
 //*********************************************
 // Provide your implementation of llpivot below
 //*********************************************
@@ -10,12 +11,14 @@ void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot)
   Node* current = head; // just added 
   if(head==nullptr){
     head = nullptr;
-    // smaller = nullptr;
-    // larger = nullptr;
+    smaller = nullptr;
+    larger = nullptr;
     return;
   }
   else{
+    
     head = current->next;// just added 
+    llpivot(head, smaller, larger, pivot);
     if(current->val <= pivot){
       current->next = smaller; // just added 
       //smaller = head;
@@ -28,7 +31,7 @@ void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot)
       larger = current; // new line 
       //llpivot(head, smaller, larger, pivot);
     }
-    llpivot(head, smaller, larger, pivot);
+    //llpivot(head, smaller, larger, pivot);
   }
 
   // if head == nullptr

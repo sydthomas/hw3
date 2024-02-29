@@ -64,41 +64,64 @@ public:
 private:
   /// Add whatever helper functions and data members you need below
   std::vector<T> heap_vec;
+  PComparator comp;
+  int nary;
   void trickleDown(int i);
   void trickleUp(int i);
 
 };
 
+template <typename T, typename PComparator>
+Heap<T,PComparator>::Heap(int m, PComparator c){
+  comp = c;
+  nary = m;
+}
+
+template <typename T, typename PComparator>
+Heap<T,PComparator>::~Heap(){
+
+}
+
 // Add implementation of member functions here
-void trickleDown(int i){
+template <typename T, typename PComparator>
+void Heap<T,PComparator>::trickleDown(int i){
   // idenitfy left & right children 
-  int leftChild = (2*i)+1;
-  int rightChild = (2*i)+2;
+  //int leftChild = (2*i)+1;
+  //int rightChild = (2*i)+2;
   int itemIndex = i;
 
-  if(leftChild < heap_vec.size() && c(heap_vec[itemIndex], heap_vec[leftChild])){
-    itemIndex = leftChild;
-  }
+  int child;
 
-  if(rightChild < heap_vec.size() && c(heap_vec[itemIndex], heap_vec[rightChild])){
-    itemIndex = rightChild;
+  for(int j = 1; j <= nary; j++){
+    child = nary*i+j;
+
+    if(child < heap_vec.size() && comp(heap_vec[child], heap_vec[itemIndex])){
+      itemIndex = child;
+    }
   }
 
   if(itemIndex != i){
-    //swap the two elements 
     std::swap(heap_vec[i], heap_vec[itemIndex]);
     trickleDown(itemIndex);
   }
 }
 
-void trickleUp(int i){
-  int parent = (i-1)/2;
+template <typename T, typename PComparator>
+void Heap<T,PComparator>::trickleUp(int i){
 
-  while(parent >= 0 && c(heap_vec[i], heap_vec[parent])){
-    std::swap(heap_vec[i], heap_vec[parent]);
-    i = parent;
-    parent = (i-1)/2;
+  int parent = (i-1)/nary;
+
+  while(parent >= 0){
+    if(comp(heap_vec[i], heap_vec[parent])){
+      std::swap(heap_vec[i], heap_vec[parent]);
+      i = parent;
+      parent = (i-1)/nary;
+    }
+    else{
+      break;
+    } 
   }
+
 }
 
 
@@ -117,6 +140,7 @@ T const & Heap<T,PComparator>::top() const
   // Add code to return the top element
 
 }
+
 
 
 // We will start pop() for you to handle the case of 
@@ -142,20 +166,20 @@ template <typename T, typename PComparator>
 void Heap<T,PComparator>::push(const T& item){
   heap_vec.push_back(item);
   trickleUp(heap_vec.size() - 1);
-
 }
 
+template <typename T, typename PComparator>
 bool Heap<T,PComparator>::empty() const{
   return heap_vec.empty();
-
 }
 
+template <typename T, typename PComparator>
 size_t Heap<T,PComparator>::size() const{
   return heap_vec.size();
-
 }
 
-
+// push and trickle functions need to use m 
+// 
 
 #endif
 

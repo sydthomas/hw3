@@ -7,7 +7,7 @@ Stack::Stack(){
 
 }
 
-~Stack(){
+~Stack::Stack(){
 
 }
 

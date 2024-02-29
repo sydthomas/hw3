@@ -19,9 +19,56 @@ public:
     // Add other members only if necessary
 
 private:
-    std::vector<T> stack_vec;
+    //std::vector<T> stack_vec;
 
 };
 
+
+
+template <typename T>
+Stack<T>::Stack(){
+
+}
+template <typename T>
+Stack<T>::~Stack(){
+
+}
+
+template <typename T>
+bool Stack<T>::empty() const{
+  return std::vector<T>::empty();    // Vector<T>::
+}
+
+template <typename T>
+size_t Stack<T>::size() const{
+  return std::vector<T>::size();   // Vector<T>::
+}
+
+template <typename T>
+void Stack<T>::push(const T& item){
+  std::vector<T>::push_back(item);
+
+}
+
+template <typename T>
+void Stack<T>::pop(){
+  if(Stack<T>::empty()){
+    throw std::underflow_error("Stack is empty");
+  }
+  else{
+    std::vector<T>::pop_back();
+  }
+} 
+
+template <typename T>
+const T& Stack<T>::top() const{
+  if(Stack<T>::empty()){
+    throw std::underflow_error("Stack is empty");
+  }
+  else{
+    //return stack_vec.back();
+    return std::vector<T>::back();
+  }
+} 
 
 #endif
